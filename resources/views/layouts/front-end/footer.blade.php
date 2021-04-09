@@ -61,7 +61,7 @@
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>. Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | Concept <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#" target="_blank">Culture-Afro</a>
 
 </p>
                 </div>
@@ -83,6 +83,7 @@
 </div>
 <!-- Search End -->
 
+<!-- Js Plugins -->
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>

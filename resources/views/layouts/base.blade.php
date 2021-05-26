@@ -27,6 +27,7 @@
             <i class="fa fa-close" aria-hidden="true"></i>
         </div>
         <div class="container">
+                @yield('title')
             <div class="row">
                 <div class="col-12">
                     <div class="search-content">

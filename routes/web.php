@@ -33,17 +33,27 @@ Route::get('/detail', function () {
 Route::get('/log', function () {
     return view('front-end.login');
 });
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
     Route::resource('categories', 'CategoriesController');
     Route::resource('collections', 'CollectionController');
     Route::resource('devise', 'DeviseController');
-    Route::resource('products', 'ProductsController');
+    Route::resource('product', 'ProductsController');
     Route::resource('super_cat', 'SuperCategoriesController');
     Route::resource('setting', 'SettingController');
+    Route::resource('slide', 'SlideController');
+    Route::resource('fournisseur', 'ShopController');
+    Route::resource('user', 'UserController');
 
 });
+
+
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/product', function () {
+    return view('admin.products.create-edit');
+});
+Route::get('/order','ProductsController@getproduct');
+Route::get('getproductbyId/{id}','ProductsController@getproductbyId');

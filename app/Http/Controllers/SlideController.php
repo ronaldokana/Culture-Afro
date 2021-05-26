@@ -19,14 +19,18 @@ class SlideController extends Controller
 
 
     public function store(Request $request){
-        $validateDate=$request->validate([
-            'image'=>'required',
-            'description'=>'required'
-        ]);
-
-        $devise = Slide::create($validateDate);
+        $slide = new Slide();
+        $slide->fill($request->only([
+            'description'
+        ]));
         
-        return redirect('slides');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('products/'.date('F').date('Y'), 'public');
+            $slide->image = $image;
+        }
+        $slide->save();
+        
+        return redirect('slide');
     }
 
     public function index() {
@@ -39,31 +43,35 @@ class SlideController extends Controller
     }
 
     public function edit($id){
-        $slide =  Devise::findOrFail($id);
+        $slide =  Slide::findOrFail($id);
         
-        return view('admin.devise.edit',compact([
+        return view('admin.slides.edit',compact([
             'slide'
         ]));
     }
     
     public function update(Request $request, $id){
    
-        $validateDate=$request->validate([
-            'image'=>'required',
-            'description'=>'required'
-        ]);
         $slide = Slide::findOrFail($id);
-        $slide = Slide::where('id','=',$id)->update($validateDate);
+        $slide->fill($request->only([
+            'description'
+        ]));
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('products/'.date('F').date('Y'), 'public');
+            $slide->image = $image;
+        }
+        $slide->save();
             
-        return redirect('slides');
+        return redirect('slide');
 
 
     }
 
     public function destroy($id){
 
-        $delete=Devise::findOrFail($id);
+        $delete=Slide::findOrFail($id);
         $delete->delete();
-        return redirect ("slides");
+        return redirect ("slide");
     }
 }

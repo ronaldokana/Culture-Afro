@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section('title','List Category')
+@section('title','List Slide')
 @section('table-css')
 <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -11,42 +11,47 @@
                 <div class="text-right pb-3">
                 <a class="btn btn-primary" href="">
                     <i class="fas fa-plus"></i>
-                   Create Category
+                   Create Slide
                 </a>
                 </div>
             </div>
             <div class="card-header">
-                <h3 class="card-title">List Category</h3>
+                <h3 class="card-title">List Slide</h3>
             </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
+                      <tr>
+                        <th> Image</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                      </tr>
                   </thead>
                   <tbody>
+                  @foreach($slides as $item)
                   <tr>
-                    <td>Misc</td>
-                    <td>PSP browser</td>
-                    <td>PSP</td>
-                    <td>-</td>
-                    <td>C</td>
+                            <td><img src="{{asset('storage/'.$item->image)}}" alt="" width="150px" height="120px"></td>
+                            <td>{{$item->description}}</td>
+                            <td>
+                                <form  action="{{route('slide.destroy',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                    <a href="{{route('slide.edit',$item->id)}}"><button type="button"  class="btn btn-sm btn-outline-primary">Edit</button></a>
+
+                                    <button  class="btn btn-sm btn-outline-danger" type="submit" >Delete</button>
+
+                                </form>
+                           </td>
                   </tr>
+                  @endforeach
                   </tbody>
                   <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
+                    <tr>
+                          <th> Image</th>
+                          <th>Description</th>
+                          <th>Actions</th>
+                    </tr>
                   </tfoot>
                 </table>
               </div>

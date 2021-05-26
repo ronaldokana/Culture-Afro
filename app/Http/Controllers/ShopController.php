@@ -14,7 +14,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
+        $fournisseurs=Shop::all();
+        return view ("admin.fournisseur.index",compact("fournisseurs"));
     }
 
     /**
@@ -24,7 +25,9 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+        $fournisseur=new Shop();
+        $isEdit=false;
+        return view ("admin.fournisseur.create-edit",compact('fournisseur','isEdit'));
     }
 
     /**
@@ -35,7 +38,18 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateDate=$request->validate([
+            'name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+            'city'=>'required',
+            'country'=>'required'
+        ]);
+
+        Shop::create($validateDate);
+
+        return redirect('fournisseur');
+        
     }
 
     /**
@@ -55,9 +69,12 @@ class ShopController extends Controller
      * @param  \App\Models\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shop $shop)
+    public function edit($id)
     {
-        //
+        $fournisseur=Shop::findOrFail($id);
+        $isEdit=true;
+
+        return view("admin.fournisseur.create-edit",compact('fournisseur','isEdit'));
     }
 
     /**
@@ -67,9 +84,21 @@ class ShopController extends Controller
      * @param  \App\Models\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, $id)
     {
-        //
+        $validateDate=$request->validate([
+            'name'=>'required',
+            'email'=>'required',
+            'phone'=>'required',
+            'city'=>'required',
+            'country'=>'required'
+        ]);
+
+        $shop=Shop::findOrFail($id);
+        $shop->update($validateDate);
+
+       return redirect("fournisseur");
+        
     }
 
     /**
@@ -78,8 +107,11 @@ class ShopController extends Controller
      * @param  \App\Models\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shop $shop)
+    public function destroy($id)
     {
-        //
+        $shop=Shop::findOrFail($id);
+        $shop->delete();
+
+        return redirect("fournisseur");
     }
 }

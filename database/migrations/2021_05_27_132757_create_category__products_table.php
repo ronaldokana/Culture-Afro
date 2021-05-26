@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleUsersTable extends Migration
+class CreateCategoryProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRoleUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('role__users', function (Blueprint $table) {
+        Schema::create('category__products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId("product_id")->constrained()->onDelete("cascade");
+            $table->foreignId("category_id")->constrained()->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateRoleUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role__users');
+        Schema::dropIfExists('category__products');
     }
 }
